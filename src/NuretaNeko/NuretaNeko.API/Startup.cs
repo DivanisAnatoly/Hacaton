@@ -52,7 +52,6 @@ namespace NuretaNeko.API
             services.AddTransient<ISkillOptionRepository, SkillOptionRepository>();
             services.AddTransient<IResumeRepository, ResumeRepository>();
             services.AddTransient<ICandidateRepository, CandidateRepository>();
-            //services.AddTransient<IDishCategoryRepository, DishCategoryRepository>();
 
 
             //services.AddSwaggerModule();
@@ -65,58 +64,6 @@ namespace NuretaNeko.API
 
             services.AddHttpContextAccessor();
             services.AddHttpClient();
-
-            //services
-            //    .AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
-            //    .AddJwtBearer(options =>
-            //    {
-            //        options.RequireHttpsMetadata = false;
-            //        options.TokenValidationParameters = new TokenValidationParameters
-            //        {
-            //            ValidateIssuer = true,
-            //            ValidateAudience = true,
-            //            ValidateLifetime = true,
-            //            ValidateIssuerSigningKey = true,
-            //            ValidIssuer = Configuration["JWT:Issuer"],
-            //            ValidAudience = Configuration["JWT:Issuer"],
-            //            IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Configuration["JWT:Key"]))
-            //        };
-            //    });
-
-            //services.AddQuartz(q =>
-            //{
-            //    q.UseMicrosoftDependencyInjectionJobFactory();
-
-            //    var currencySpyJobKey = new JobKey("CurrencySpy");
-            //    q.AddJob<CurrencySpy>(opt => opt.WithIdentity(currencySpyJobKey));
-
-            //    var oldMonthRatesToAverageJobKey = new JobKey("OldMonthRatesToAverage");
-            //    q.AddJob<OldMonthRatesToAverage>(opt => opt.WithIdentity(oldMonthRatesToAverageJobKey));
-
-            //    q.AddTrigger(opts => opts
-            //        .WithIdentity("CurrencySpy-trigger")
-            //        .ForJob(currencySpyJobKey)
-            //        .StartAt(DateBuilder.EvenSecondDate(DateTimeOffset.UtcNow.AddSeconds(3)))
-            //        .WithCronSchedule("0 0 23 * * ?")
-            //        .WithDescription("Trigger for collecting currencies rates")
-            //    );
-
-            //    q.AddTrigger(opts => opts
-            //        .WithIdentity("OldMonthRatesToAverage-trigger")
-            //        .ForJob(oldMonthRatesToAverageJobKey)
-            //        .StartAt(DateBuilder.EvenSecondDate(DateTimeOffset.UtcNow.AddSeconds(3)))
-            //        .WithCronSchedule("0 50 23 L * ? *")
-            //        .WithDescription("Trigger which brings old month currencies rates to the average value")
-            //    );
-            //});
-
-            //services.AddQuartzHostedService(q => q.WaitForJobsToComplete = true);
-
-            //services.AddScoped<ITokenService, JwtTokenService>();
-            //services.AddScoped<IIdentityService, IdentityService>();
-
-            //services.AddTransient<IValidator<LoginUserRequest>, LoginUserRequestValidator>();
-            //services.AddTransient<IValidator<RegisterUserRequest>, RegisterUserRequestValidator>();
 
             services.AddCors(options =>
             {

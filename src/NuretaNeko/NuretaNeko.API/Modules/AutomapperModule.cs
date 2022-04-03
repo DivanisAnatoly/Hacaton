@@ -15,11 +15,9 @@ namespace NuretaNeko.API.Modules
             var configuration = new MapperConfiguration(config =>
             {
                 config.AddProfile(new Mappings.AppMappingProfile());
-                //config.AddProfile(new Mappings.UserMappingProfile());
-                //config.AddProfile(new Mappings.UserSettingsMappingProfile());
+
             });
 
-            //configuration.AssertConfigurationIsValid();
 
             return configuration;
         }
