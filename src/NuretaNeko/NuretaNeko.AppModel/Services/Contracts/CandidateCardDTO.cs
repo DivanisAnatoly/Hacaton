@@ -6,13 +6,19 @@ using System.Threading.Tasks;
 
 namespace NuretaNeko.AppModel.Services.Contracts
 {
-    public record ShortCandidateCardDTO
+    public record CandidateCardDTO
     {
-        public Guid Guid { get; set; }
         public string Name { get; set; }
         public string Position { get; set; }
         public string Photo { get; set; }
+        public string Phone { get; set; }
         public double Score { get; set; }
+        public List<SkillInfoDTO> FormData { get; set; }
+    }
 
+    public record SkillInfoDTO
+    {
+        public string Name { get; set; }
+        public string Value { get; set; }
     }
 }

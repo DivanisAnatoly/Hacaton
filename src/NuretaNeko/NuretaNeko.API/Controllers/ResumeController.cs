@@ -32,8 +32,15 @@ namespace NuretaNeko.API.Controllers
         [HttpGet]
         public async Task<IActionResult> GetResumes(CancellationToken cancellationToken)
         {
-            //var getResumesDTO = _mapper.Map<GetResumesDTO.Request>(request);
             var response = await _appService.GetResumes(cancellationToken);
+            return Ok(response);
+        }
+
+        [HttpGet("{id}")]
+        public async Task<IActionResult> GetResume(Guid id, CancellationToken cancellationToken)
+        {
+            //var getResumesDTO = _mapper.Map<GetResumesDTO.Request>(request);
+            var response = await _appService.GetResume(id, cancellationToken);
             return Ok(response);
         }
 

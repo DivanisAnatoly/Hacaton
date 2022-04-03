@@ -14,5 +14,6 @@ namespace NuretaNeko.AppModel.Services
         //Task<AddResumeDTO.Response> AddResume(AddResumeDTO.Request request, CancellationToken cancellationToken);
         Task<AddResumeDTO.Response> AddResume(AddResumeDTO.Request request, CancellationToken cancellationToken);
         Task<GetResumesDTO.Response> GetResumes(CancellationToken cancellationToken);
+        Task<GetResumeDTO.Response> GetResume(Guid id, CancellationToken cancellationToken);
     }
 }

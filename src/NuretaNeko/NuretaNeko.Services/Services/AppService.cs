@@ -135,6 +135,57 @@ namespace NuretaNeko.Services.Services
             };
         }
 
+        public async Task<GetResumeDTO.Response> GetResume(Guid id, CancellationToken cancellationToken)
+        {
+            var candidate = await _candidateRepository.FindAll()
+                .Include(c => c.Resume)
+                .FirstOrDefaultAsync(c =>c.ResumeId == id, cancellationToken);
+
+            if (candidate == null)
+            {
+                return new GetResumeDTO.Response
+                {
+                    IsSuccess = false,
+                    ErrorMsg = "No such resume"
+                };
+            }
+
+            var formData = JsonConvert.DeserializeObject<Dictionary<string, string>>(candidate.Resume.FormData);
+
+            var reviewedSkills = await _skillOptionRepository.FindAll().Include(x=>x.Skill)
+                .Where(x => formData.Keys.Contains(x.Skill.Code) && formData.Values.Contains(x.OptionKey))
+                .ToListAsync(cancellationToken);
+
+            List<SkillInfoDTO> skillInfoDTOs = new();
+
+            foreach(var rSkill in reviewedSkills)
+            {
+                SkillInfoDTO skillInfo = new()
+                {
+                    Name = rSkill.Skill.Name,
+                    Value = rSkill.Value
+                };
+                skillInfoDTOs.Add(skillInfo);
+            }
+
+            var card = new CandidateCardDTO()
+            {
+                Name = candidate.Name,
+                Phone = candidate.Phone,
+                Photo = candidate.Photo,
+                Position = ((Position)candidate.Resume.Position).EnumToString(),
+                Score = candidate.Resume.Score,
+                FormData = skillInfoDTOs
+            };
+
+            return new GetResumeDTO.Response
+            {
+                Card = card,
+                IsSuccess = true,
+            };
+
+        }
+
         public async Task<GetResumesDTO.Response> GetResumes(CancellationToken cancellationToken)
         {
             List<ShortCandidateCardDTO> cardDTOs = new();
@@ -144,6 +195,7 @@ namespace NuretaNeko.Services.Services
             {
                 var card = new ShortCandidateCardDTO()
                 {
+                    Guid = candidate.Resume.Guid,
                     Name = candidate.Name,
                     Photo = candidate.Photo,
                     Position = ((Position)candidate.Resume.Position).EnumToString(),
